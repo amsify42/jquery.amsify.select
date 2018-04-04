@@ -7,6 +7,7 @@
             type        : 'bootstrap',
             labelLimit  : 5,
             limit       : 50,
+            searchable  : false,
         }, options);
 
         /**
@@ -30,6 +31,7 @@
               inputType   : '.amsify-select-input',
               operations  : '.amsify-select-operations',
               clear       : '.amsify-select-clear',
+              close       : '.amsify-select-close',
            };
            this.selectors     = {
               selectArea  : null,
@@ -42,10 +44,13 @@
               list        : null,
               operations  : null,
               clear       : null,
+              close       : null,
            };
            this.selectionArea = '.amsify-selection-area';
            this.options       = [];
+           this.selected      = [];
            this.isMultiple    = false;
+           this.isSearchable  = false;
         };
 
 
@@ -55,8 +60,9 @@
              * @param  {selector} form
              */
             _init : function(selector) {
-                this.select = selector;
-                this.name   = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
+                this.select       = selector;
+                this.name         = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
+                this.isSearchable = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
                 this.extractData();
                 this.createHTML();
                 this.setEvents();
@@ -70,7 +76,7 @@
                   _self.options.push({
                                       value     : $(option).val(),
                                       label     : $(option).text(),
-                                      selected  : (!index)? 1 : 0
+                                      selected  : ($(option).attr('selected') !== undefined)? 1 : 0
                                   });
               });
             }, 
@@ -90,11 +96,16 @@
               this.selectors.listArea   = $(listArea).appendTo(this.selectors.selectArea);
               $(this.selectors.listArea).width($(this.selectors.selectArea).width()-3);
 
-              var searchArea            = '<div class="'+this.classes.searchArea.substring(1)+'"></div>';
-              this.selectors.searchArea = $(searchArea).appendTo(this.selectors.listArea);
+              /**
+               * If searchable
+               */
+              if(this.isSearchable) {
+                var searchArea            = '<div class="'+this.classes.searchArea.substring(1)+'"></div>';
+                this.selectors.searchArea = $(searchArea).appendTo(this.selectors.listArea);
 
-              var search                = '<input type="text" class="'+this.classes.search.substring(1)+'" placeholder="Search here..."/>';
-              this.selectors.search      = $(search).appendTo(this.selectors.searchArea);
+                var search                = '<input type="text" class="'+this.classes.search.substring(1)+'" placeholder="Search here..."/>';
+                this.selectors.search      = $(search).appendTo(this.selectors.searchArea);
+              }
 
               var list                  = '<ul class="'+this.classes.list.substring(1)+'"></ul>';
               this.selectors.list       = $(list).appendTo(this.selectors.listArea);
@@ -104,6 +115,9 @@
 
               var clear                 = '<button class="'+this.classes.clear.substring(1)+'">Clear</button>';
               this.selectors.clear      = $(clear).appendTo(this.selectors.operations);
+
+              var close                 = '<button class="'+this.classes.close.substring(1)+'">Close</button>';
+              this.selectors.close      = $(close).appendTo(this.selectors.operations);
               $(this.createList()).appendTo(this.selectors.list);
             },            
 
@@ -114,7 +128,11 @@
               $(this.selectors.labelArea).click(function(){
                   $(this).parent().find(_self.classes.listArea).toggle();
               });
+              $(this.selectors.close).click(function(){
+                 $(this).closest(_self.classes.listArea).hide(); 
+              });
               $(this.selectors.list).find(this.classes.listItem).click(function(){
+                $(_self.selectors.list).find(_self.classes.listItem).removeClass('active');
                 $input      = $(this).find(_self.classes.inputType);
                 var checked = ($input.is(':checked'))? false: true;
                 $input.prop('checked', checked);
@@ -124,20 +142,27 @@
                 if(values.length > settings.limit) { 
                   alert('You cannot select more than '+settings.limit); 
                   $input.prop('checked', false);
+                  $(this).removeClass('active');
                   return;
                 };
                 _self.setValue(values);
               });
-              $(this.selectors.search).keyup(function(){
-                var value = $.trim($(this).val().toLowerCase());
-                _self.filterList(value);
-              });
+              /**
+               * If searchable
+               */
+              if(this.isSearchable) {
+                $(this.selectors.search).keyup(function(){
+                  var value = $.trim($(this).val().toLowerCase());
+                  _self.filterList(value);
+                });
+              }
               $(this.selectors.clear).click(function(){
                 _self.clearInputs();
               });
               $(window).resize(function(){
                 $(_self.selectors.listArea).width($(_self.selectors.selectArea).width()-3);
               });
+              if(this.selected.length) this.setValue(this.selected);
             },
 
             setValue : function(values) {
@@ -145,9 +170,15 @@
               $(this.select).find('option').attr('selected', false);
               var label = (values.length)? '' : this.defaultLabel+', ';
               $.each(this.options, function(index, option){
-                if($.inArray(option.value, values) !== -1) {
+                if($.inArray(option.value, values) !== -1){
                   label += option.label+', ';
                   $(_self.select).find('[value="'+option.value+'"]').attr('selected', true);
+                  $(_self.selectors.list).find(_self.classes.inputType).each(function(){
+                      if($(this).is(':checked')) {
+                        $(this).closest(_self.classes.listItem).addClass('active');
+                      }
+                  });
+                  if(!_self.isMultiple) return false;
                 }
               });
               label = (values.length >= settings.labelLimit)? values.length+' selected': label.slice(0, -2);
@@ -162,9 +193,15 @@
             createList : function() {
               var _self     = this;
               var listHTML  = '';
+              var selected  = false;
               $.each(this.options, function(index, option){
-                if(index) {
-                  listHTML += '<li class="'+_self.classes.listItem.substring(1)+'">'+_self.getInputType(option.value)+' '+option.label+'</li>';
+                if(option.value) {
+                  var isActive = ((option.selected && _self.isMultiple) || (option.selected && !selected))? 'active': '';
+                  listHTML += '<li class="'+_self.classes.listItem.substring(1)+' '+isActive+'">'+_self.getInputType(option.value)+' '+option.label+'</li>';
+                  if(option.selected) {
+                    _self.selected.push(option.value);
+                    selected = true;
+                  }
                 }
               });
               return listHTML;
@@ -188,9 +225,15 @@
 
             clearInputs : function() {
               $(this.select).find(':selected').attr('selected', false);
+              $(this.selectors.list).find(this.classes.listItem).removeClass('active');
               $(this.selectors.list).find(this.classes.inputType).prop('checked', false);
               $(this.selectors.label).text(this.defaultLabel);
-              $(this.selectors.search).val('');
+              /**
+               * If searchable
+               */
+              if(this.isSearchable) {
+                $(this.selectors.search).val('');
+              }
               this.filterList('');
             },
            

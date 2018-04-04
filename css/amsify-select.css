@@ -50,6 +50,27 @@ li.amsify-list-item:hover {
 
 .amsify-selection-area
 .amsify-selection-list
+ul.amsify-list
+li.amsify-list-item:active {
+	background: #717171;
+    color: white;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+.amsify-select-input {
+	display: none;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.active {
+	background: #bbbbbb;
+}
+
+.amsify-selection-area
+.amsify-selection-list
 .amsify-select-search-area {
 	padding: 3px 5px;
     border: 1px solid #dedede;
@@ -71,4 +92,9 @@ li.amsify-list-item:hover {
 	padding: 3px 5px;
     border: 1px solid #dedede;
     text-align: right;
+}
+
+.amsify-select-clear,
+.amsify-select-close {
+	margin: 0px 4px;
 }
