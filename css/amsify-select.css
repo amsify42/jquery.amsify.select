@@ -1,0 +1,74 @@
+
+.amsify-selection-area
+.amsify-selection-label
+.amsify-label {
+	float: left;
+	padding: 0px 4px;
+}
+
+.amsify-selection-area
+.amsify-selection-label {
+	cursor: pointer;
+}
+
+.amsify-toggle-selection {
+	float: right;
+	cursor: pointer;
+}
+
+.amsify-selection-area .amsify-selection-list {
+	display: none;
+	position: absolute;
+	background: white;
+	border: 1px solid #dedede;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list {
+	list-style: none;
+	padding: 10px 0px;
+	max-height: 150px;
+    overflow-y: auto;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.amsify-list-item {
+	text-align: left;
+    cursor: pointer;
+    padding: 0px 10px;	
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.amsify-list-item:hover {
+	background: #bbbbbb;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+.amsify-select-search-area {
+	padding: 3px 5px;
+    border: 1px solid #dedede;
+    text-align: right;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+.amsify-select-search-area
+.amsify-selection-search {
+	width: 100%;
+    padding: 3px 7px;
+    border: 1px solid #d4d4d4;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+.amsify-select-operations {
+	padding: 3px 5px;
+    border: 1px solid #dedede;
+    text-align: right;
+}
