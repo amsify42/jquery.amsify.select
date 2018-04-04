@@ -19,19 +19,20 @@
            this.name          = null;
            this.defaultLabel  = 'Select';
            this.classes       = {
-              selectArea  : '.amsify-selection-area',
-              labelArea   : '.amsify-selection-label',
-              label       : '.amsify-label',
-              toggle      : '.amsify-toggle-selection',
-              listArea    : '.amsify-selection-list',
-              searchArea  : '.amsify-select-search-area',
-              search      : '.amsify-selection-search',
-              list        : '.amsify-list',
-              listItem    : '.amsify-list-item',
-              inputType   : '.amsify-select-input',
-              operations  : '.amsify-select-operations',
-              clear       : '.amsify-select-clear',
-              close       : '.amsify-select-close',
+              selectArea    : '.amsify-selection-area',
+              labelArea     : '.amsify-selection-label',
+              labelDefault  : '.amsify-selection-label-default',
+              label         : '.amsify-label',
+              toggle        : '.amsify-toggle-selection',
+              listArea      : '.amsify-selection-list',
+              searchArea    : '.amsify-select-search-area',
+              search        : '.amsify-selection-search',
+              list          : '.amsify-list',
+              listItem      : '.amsify-list-item',
+              inputType     : '.amsify-select-input',
+              operations    : '.amsify-select-operations',
+              clear         : '.amsify-select-clear',
+              close         : '.amsify-select-close',
            };
            this.selectors     = {
               selectArea  : null,
@@ -104,7 +105,7 @@
                 this.selectors.searchArea = $(searchArea).appendTo(this.selectors.listArea);
 
                 var search                = '<input type="text" class="'+this.classes.search.substring(1)+'" placeholder="Search here..."/>';
-                this.selectors.search      = $(search).appendTo(this.selectors.searchArea);
+                this.selectors.search     = $(search).appendTo(this.selectors.searchArea);
               }
 
               var list                  = '<ul class="'+this.classes.list.substring(1)+'"></ul>';
@@ -186,8 +187,13 @@
               console.info($(this.select).val());
             },
 
-            toggleIcon : function(type) {
-                return '<span class="'+this.classes.toggle.substring(1)+' fa fa-chevron-down"></span>';
+            toggleIcon : function() {
+                if(settings.type == 'bootstrap') {
+                  return '<span class="'+this.classes.toggle.substring(1)+' fa fa-chevron-down"></span>';
+                } else {
+                  $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
+                  return '<span class="'+this.classes.toggle.substring(1)+'">&#x25BC;</span>';
+                }
             },
 
             createList : function() {

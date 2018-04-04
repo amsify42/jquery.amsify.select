@@ -1,3 +1,10 @@
+.amsify-selection-area
+.amsify-selection-label-default {
+	cursor: pointer;
+    border: 1px solid #cccccc;
+    min-height: 20px;
+    padding: 8px 5px;
+}
 
 .amsify-selection-area
 .amsify-selection-label

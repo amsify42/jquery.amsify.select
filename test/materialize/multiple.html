@@ -7,24 +7,26 @@
 <title>Jquery Select - Amsify42</title>
 
 <!-- CDN links -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="../css/amsify-select.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../../css/amsify-select.css">
 
 <!-- Amsify Plugin -->
-<script type="text/javascript" src="../js/jquery.amsify.select.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script type="text/javascript" src="../../js/jquery.amsify.select.js"></script>
 </head>
 <body>
 <header>
 	<div class="container">
-		<h1 class="text-center">Jquery Selection - Search</h1>
+		<h1 class="text-center">Jquery Selection - Multiple</h1>
 	</div>
 </header>
 <div class="container" style="min-height:360px;">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
 		<div class="form-group">
-			<h4>Selection - Search</h4>
-			<select class="form-control" name="country" searchable>
+			<select class="form-control" name="country" multiple="multiple">
 				<option value="">Select Country</option>
 				<option value="1">India</option>
 				<option value="2">Afghanistan</option>
@@ -32,25 +34,10 @@
 				<option value="5">Russia</option>
 				<option value="6">South Africa</option>
 				<option value="7">West Indies</option>
-
-				<option value="11">India 1</option>
-				<option value="21">Afghanistan 1</option>
-				<option value="41">USA 1</option>
-				<option value="51">Russia 1</option>
-				<option value="61">South Africa 1</option>
-				<option value="71">West Indies 1</option>
-
-				<option value="12">India 2</option>
-				<option value="22">Afghanistan 2</option>
-				<option value="42">USA 2</option>
-				<option value="52">Russia 2</option>
-				<option value="62">South Africa 2</option>
-				<option value="72">West Indies 2</option>
 			</select>
 		</div>
 		<div class="form-group">
-			<h4>Selection [Multiple] - Search</h4>
-			<select class="form-control" name="colors"  multiple="multiple" searchable>
+			<select class="form-control" name="colors"  multiple="multiple">
 				<option value="">Select Color</option>
 				<option value="Black">Black</option>
 				<option value="White">White</option>
@@ -58,20 +45,18 @@
 				<option value="Orange">Orange</option>
 				<option value="Blue">Blue</option>
 				<option value="Green">Green</option>
-
-				<option value="Black1">Black1</option>
-				<option value="White1">White1</option>
-				<option value="Red1">Red1</option>
-				<option value="Orange1">Orange1</option>
+			</select>
+		</div>
+		<h4>Already Selected</h4>
+		<div class="form-group">
+			<select class="form-control" name="colors" multiple="">
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White" selected>White</option>
+				<option value="Red">Red</option>
+				<option value="Orange" selected>Orange</option>
 				<option value="Blue">Blue</option>
-				<option value="Green1">Green1</option>
-
-				<option value="Black2">Black2</option>
-				<option value="White2">White2</option>
-				<option value="Red2">Red2</option>
-				<option value="Orange2">Orange2</option>
-				<option value="Blue2">Blue2</option>
-				<option value="Green2">Green2</option>
+				<option value="Green" selected>Green</option>
 			</select>
 		</div>
 	</div>
@@ -82,18 +67,14 @@
 		<h1 class="text-left">Usage</h1>
 		<pre>
 			<code>
-				$('select').amsifySelect({
-					type : 'amsify'
-				});
+				$('select').amsifySelect();			
 			</code>
 		</pre>
 	</div>
 </footer>
 <!-- -->
 <script type="text/javascript">
-	$('select').amsifySelect({
-		type : 'amsify'
-	});
+	$('select').amsifySelect();
 </script>
 </body>
 </html>
