@@ -1,2 +1,3 @@
-# jquery.amsify.select
-Jquery plugin for selection input
+# Amsify Jquery Select
+
+Under Development...
