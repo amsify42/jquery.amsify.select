@@ -7,26 +7,26 @@
 <title>Jquery Select - Amsify42</title>
 
 <!-- CDN links -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/amsify-select.css">
 
 <!-- Amsify Plugin -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<script type="text/javascript" src="../../js/jquery.amsify.select.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="../../js/jquery.amsifyselect.js"></script>
 </head>
+
+
 <body>
-<header>
-	<div class="container">
-		<h1 class="text-center">Jquery Selection - Multiple</h1>
-	</div>
-</header>
-<div class="container" style="min-height:360px;">
-	<div class="col-md-3"></div>
-	<div class="col-md-6 text-center">
-		<div class="form-group">
-			<select class="form-control" name="country" multiple="multiple">
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h4 class="header center orange-text">Jquery Selection</h4>
+      <div class="row center">
+        <select class="form-control" name="country" multiple="multiple">
 				<option value="">Select Country</option>
 				<option value="1">India</option>
 				<option value="2">Afghanistan</option>
@@ -35,9 +35,10 @@
 				<option value="6">South Africa</option>
 				<option value="7">West Indies</option>
 			</select>
-		</div>
-		<div class="form-group">
-			<select class="form-control" name="colors"  multiple="multiple">
+      </div>
+      <br/>
+      <div class="row center">
+      	<select class="form-control" name="colors"  multiple="multiple">
 				<option value="">Select Color</option>
 				<option value="Black">Black</option>
 				<option value="White">White</option>
@@ -46,10 +47,10 @@
 				<option value="Blue">Blue</option>
 				<option value="Green">Green</option>
 			</select>
-		</div>
-		<h4>Already Selected</h4>
-		<div class="form-group">
-			<select class="form-control" name="colors" multiple="">
+      </div>
+      <br><br>
+      <div class="row center">
+      		<select class="form-control" name="colors" multiple="">
 				<option value="">Select Color</option>
 				<option value="Black">Black</option>
 				<option value="White" selected>White</option>
@@ -58,23 +59,30 @@
 				<option value="Blue">Blue</option>
 				<option value="Green" selected>Green</option>
 			</select>
-		</div>
-	</div>
-	<div class="col-md-3"></div>
-</div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
 <footer>
 	<div class="container">
-		<h1 class="text-left">Usage</h1>
+		<h4 class="text-left">Usage</h4>
 		<pre>
 			<code>
-				$('select').amsifySelect();			
+				$('select').amsifySelect({
+					type: 'materialize'
+				});			
 			</code>
 		</pre>
 	</div>
 </footer>
 <!-- -->
 <script type="text/javascript">
-	$('select').amsifySelect();
+	$('select').amsifySelect({
+		type: 'materialize'
+	});
 </script>
 </body>
 </html>

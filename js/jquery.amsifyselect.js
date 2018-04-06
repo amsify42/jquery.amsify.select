@@ -8,6 +8,10 @@
             labelLimit  : 5,
             limit       : 50,
             searchable  : false,
+            classes     : {
+              clear : '',
+              close : '',
+            },
         }, options);
 
         /**
@@ -34,6 +38,20 @@
               clear         : '.amsify-select-clear',
               close         : '.amsify-select-close',
            };
+           this.defaultClass  = {
+              bootstrap : {
+                clear : 'btn btn-default',
+                close : 'btn btn-default',
+              },
+              materialize : {
+                clear : 'btn waves-effect waves-light',
+                close : 'btn waves-effect waves-light',
+              },
+              amsify : {
+                clear : '',
+                close : '',
+              }
+           };
            this.selectors     = {
               selectArea  : null,
               labelArea   : null,
@@ -52,6 +70,8 @@
            this.selected      = [];
            this.isMultiple    = false;
            this.isSearchable  = false;
+           this.clearClass    = null;
+           this.closeClass    = null;
         };
 
 
@@ -64,6 +84,8 @@
                 this.select       = selector;
                 this.name         = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
                 this.isSearchable = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
+                this.clearClass   = (settings.classes.clear)? settings.classes.clear: this.defaultClass[settings.type].clear;
+                this.closeClass   = (settings.classes.close)? settings.classes.close: this.defaultClass[settings.type].close;
                 this.extractData();
                 this.createHTML();
                 this.setEvents();
@@ -114,12 +136,13 @@
               var operations            = '<div class="'+this.classes.operations.substring(1)+'"></div>';
               this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
 
-              var clear                 = '<button class="'+this.classes.clear.substring(1)+'">Clear</button>';
+              var clear                 = '<button class="'+this.classes.clear.substring(1)+' '+this.clearClass+'">Clear</button>';
               this.selectors.clear      = $(clear).appendTo(this.selectors.operations);
 
-              var close                 = '<button class="'+this.classes.close.substring(1)+'">Close</button>';
+              var close                 = '<button class="'+this.classes.close.substring(1)+' '+this.closeClass+'">Close</button>';
               this.selectors.close      = $(close).appendTo(this.selectors.operations);
               $(this.createList()).appendTo(this.selectors.list);
+              this.fixCSS();
             },            
 
             setEvents : function() {
@@ -144,7 +167,7 @@
                   alert('You cannot select more than '+settings.limit); 
                   $input.prop('checked', false);
                   $(this).removeClass('active');
-                  return;
+                  return false;
                 };
                 _self.setValue(values);
               });
@@ -163,7 +186,23 @@
               $(window).resize(function(){
                 $(_self.selectors.listArea).width($(_self.selectors.selectArea).width()-3);
               });
-              if(this.selected.length) this.setValue(this.selected);
+              this.loadExisting();
+            },
+
+            loadExisting : function() {
+              var _self = this;
+              if(this.selected.length) {
+                var selected  = false;
+                $(this.selectors.list).find(this.classes.listItem).each(function(){
+                    $input = $(this).find(_self.classes.inputType);
+                    var isSelected = $.inArray($input.val(), _self.selected);
+                    if((isSelected !== -1 && _self.isMultiple) || (isSelected !== -1 && !selected)) {
+                      $input.prop('checked', true);
+                      selected = true;
+                    }
+                });
+                this.setValue(this.selected);
+              }
             },
 
             setValue : function(values) {
@@ -190,6 +229,8 @@
             toggleIcon : function() {
                 if(settings.type == 'bootstrap') {
                   return '<span class="'+this.classes.toggle.substring(1)+' fa fa-chevron-down"></span>';
+                } else if(settings.type == 'materialize') {
+                  return '<i class="'+this.classes.toggle.substring(1)+' material-icons">arrow_drop_down</i>';
                 } else {
                   $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
                   return '<span class="'+this.classes.toggle.substring(1)+'">&#x25BC;</span>';
@@ -241,6 +282,16 @@
                 $(this.selectors.search).val('');
               }
               this.filterList('');
+            },
+
+            fixCSS : function() {
+              if(settings.type == 'materialize') {
+                $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1)).css({'min-height': '36px', 'padding': '5px 5px'});
+                $(this.selectors.searchArea).css('max-height', '46px');
+                $(this.selectors.search).css('max-height', '28px');
+              } else if(settings.type == 'bootstrap') {
+                $(this.selectors.search).css('width', '100%');
+              }
             },
            
         };
