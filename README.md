@@ -1,9 +1,7 @@
 Amsify Jquery Selection Input
 -----------------------------
 
-This is a simple jquery plugin for input type selection.
-<br/>
-You can initialize the plugin in this way
+This is a simple jquery plugin for input type selection. You can initialize the plugin in this way
 ```js
 	$('select').amsifySelect();
 ```
