@@ -8,14 +8,14 @@ You can initialize the plugin in this way
 	$('select').amsifySelect();
 ```
 
-## Table of Contents
+# Table of Contents
 1. [Simple](#simple-selection)
 2. [Multiple](#multiple-selection)
 3. [Option Group](#option-group)
-4. [Search](#search-selection)
+4. [Searchable](#search-selection)
 5. [Settings](#settings)
 
-### Simple Selection
+## Simple Selection
 For simple selection, your html select input can be
 ```html
 	<select name="country">
@@ -29,7 +29,7 @@ For simple selection, your html select input can be
 	</select>
 ```
 
-### Multiple Selection
+## Multiple Selection
 For multiple selection, just add the multiple attribute to the selection
 ```html
 	<select name="country" multiple="multiple">
@@ -43,7 +43,7 @@ For multiple selection, just add the multiple attribute to the selection
 	</select>
 ```
 
-### Option Group
+## Option Group
 Option Group will be automatically rendered when it finds optgroup tags
 ```html
 	<select name="country">
@@ -63,7 +63,7 @@ Option Group will be automatically rendered when it finds optgroup tags
 	</select>
 ```
 
-### Search Selection
+## Search Selection
 For making the selection search the elements, just add the searchable attribute to selection
 ```html
 	<select name="country" searchable>
@@ -93,9 +93,9 @@ Searchable option can also be set from plugin initialization
 	$('#country').amsifySelect({ searchable: true });
 ```
 
-### Settings
+## Settings
 
-#### Type
+### 1. Type
 ```js
 	$('select').amsifySelect({ type: 'bootstrap' });
 ```
@@ -107,14 +107,14 @@ Default type is **bootstrap**. You can pass any one of these three
 ```
 Here **amsify** means, it will simply render HTML without using any css framework classes.
 
-#### Limit
+### 2. Limit
 When limit is passed, user cannot select options more than the given limit.
 ```js
 	$('select').amsifySelect({ limit: 5 });
 ```
 Default limit is 30.
 
-#### Label Limit
+### 3. Label Limit
 Label limit will limit the number of labels to be shown in selection area when items are being selected.
 ```js
 	$('select').amsifySelect({ labelLimit: 5 });
@@ -122,7 +122,7 @@ Label limit will limit the number of labels to be shown in selection area when i
 Default labelLimit is 5.
 
 
-#### Button Clases
+### 4. Button Clases
 If you want, you can pass css classes to the buttons we are rendering in this plugin.
 ```js
 	$('select').amsifySelect({ 
