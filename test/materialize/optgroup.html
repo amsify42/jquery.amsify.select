@@ -26,38 +26,59 @@
       <br><br>
       <h4 class="header center orange-text">Jquery Selection</h4>
       <div class="row center">
-        <select class="browser-default" name="country">
+      	<h4>Single</h4>
+        <select class="form-control" name="country">
 			<option value="">Select Country</option>
-			<option value="1">India</option>
-			<option value="2">Afghanistan</option>
-			<option value="3">USA</option>
-			<option value="4">Russia</option>
-			<option value="5">South Africa</option>
-			<option value="6">West Indies</option>
+			<optgroup label="Asia">
+				<option value="1">India</option>
+				<option value="2">Afghanistan</option>
+			</optgroup>
+			<optgroup label="America">
+				<option value="3">USA</option>
+				<option value="4">Canada</option>
+			</optgroup>
+			<optgroup label="Africa">
+				<option value="5">South Africa</option>
+				<option value="6">Nigeria</option>
+			</optgroup>
 		</select>
       </div>
       <br/>
       <div class="row center">
-      	<select class="browser-default" name="colors">
-				<option value="">Select Color</option>
-				<option value="Black">Black</option>
-				<option value="White">White</option>
-				<option value="Red">Red</option>
-				<option value="Orange">Orange</option>
-				<option value="Blue">Blue</option>
-				<option value="Green">Green</option>
-			</select>
+      	<h4>Multiple</h4>
+      	<select class="form-control" name="colors"  multiple="multiple">
+			<option value="">Select Color</option>
+			<optgroup label="Simple">
+				<option value="1">White</option>
+				<option value="2">Black</option>
+			</optgroup>
+			<optgroup label="Signal">
+				<option value="3">Green</option>
+				<option value="4">Red</option>
+			</optgroup>
+			<optgroup label="Nature">
+				<option value="5">Blue</option>
+				<option value="6">Orange</option>
+			</optgroup>
+		</select>
       </div>
       <br><br>
       <div class="row center">
-      	<select class="form-control" name="colors2">
+      		<h4>Already Selected</h4>
+      		<select class="form-control" name="colors2"  multiple="multiple">
 				<option value="">Select Color</option>
-				<option value="Black">Black</option>
-				<option value="White" selected>White</option>
-				<option value="Red">Red</option>
-				<option value="Orange">Orange</option>
-				<option value="Blue">Blue</option>
-				<option value="Green">Green</option>
+				<optgroup label="Simple">
+					<option value="1">White</option>
+					<option value="2" selected="">Black</option>
+				</optgroup>
+				<optgroup label="Signal">
+					<option value="3">Green</option>
+					<option value="4" selected="">Red</option>
+				</optgroup>
+				<optgroup label="Nature">
+					<option value="5">Blue</option>
+					<option value="6">Orange</option>
+				</optgroup>
 			</select>
       </div>
     </div>

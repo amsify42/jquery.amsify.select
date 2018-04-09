@@ -52,6 +52,32 @@ li.amsify-list-item {
 .amsify-selection-area
 .amsify-selection-list
 ul.amsify-list
+li.amsify-list-group {
+	text-align: left;
+    padding: 0px 10px;
+    font-weight: bold;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.amsify-item-pad {
+    padding-left: 30px;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.amsify-item-noresult {
+    display: none;
+    color: #ff6060;
+    font-weight: bold;
+    text-align: center;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
 li.amsify-list-item:hover {
 	background: #bbbbbb;
 }
@@ -79,6 +105,13 @@ ul.amsify-list
 li.active {
 	background: #bbbbbb;
 	font-weight: bold;
+}
+
+.amsify-selection-area
+.amsify-selection-list
+ul.amsify-list
+li.amsify-item-pad.active {
+	font-weight: normal;
 }
 
 .amsify-selection-area

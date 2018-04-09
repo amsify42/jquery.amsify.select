@@ -6,7 +6,7 @@
         var settings = $.extend({
             type        : 'bootstrap',
             labelLimit  : 5,
-            limit       : 50,
+            limit       : 30,
             searchable  : false,
             classes     : {
               clear : '',
@@ -32,7 +32,10 @@
               searchArea    : '.amsify-select-search-area',
               search        : '.amsify-selection-search',
               list          : '.amsify-list',
+              listGroup     : '.amsify-list-group',
               listItem      : '.amsify-list-item',
+              itemPad       : '.amsify-item-pad',
+              noResult      : '.amsify-item-noresult',
               inputType     : '.amsify-select-input',
               operations    : '.amsify-select-operations',
               clear         : '.amsify-select-clear',
@@ -69,6 +72,7 @@
            this.options       = [];
            this.selected      = [];
            this.isMultiple    = false;
+           this.isOptGroup    = false;
            this.isSearchable  = false;
            this.clearClass    = null;
            this.closeClass    = null;
@@ -95,13 +99,40 @@
             extractData : function() {
               var _self = this;
               this.isMultiple = ($(this.select).prop('multiple'))? true : false;
-              $(this.select).find('option').each(function(index, option){
+              this.isOptGroup = ($(this.select).find('optgroup').length)? true: false;
+
+              if(this.isOptGroup) {
+                $firstItem = $(this.select).find('option:first');
+                if($firstItem.length) {
                   _self.options.push({
-                                      value     : $(option).val(),
-                                      label     : $(option).text(),
-                                      selected  : ($(option).attr('selected') !== undefined)? 1 : 0
-                                  });
-              });
+                                        type      : 'option',
+                                        label     : $firstItem.text(),
+                                    });
+                }
+                $(this.select).find('optgroup').each(function(index, optgroup){
+                  _self.options.push({
+                                        type      : 'optgroup',
+                                        label     : $(optgroup).attr('label'),
+                                    });
+                  $(optgroup).find('option').each(function(okey, option){
+                      _self.options.push({
+                                          type      : 'option',
+                                          value     : $(option).val(),
+                                          label     : $(option).text(),
+                                          selected  : ($(option).attr('selected') !== undefined)? 1 : 0
+                                      });
+                  });
+                });
+              } else {
+                $(this.select).find('option').each(function(index, option){
+                      _self.options.push({
+                                          type      : 'option',
+                                          value     : $(option).val(),
+                                          label     : $(option).text(),
+                                          selected  : ($(option).attr('selected') !== undefined)? 1 : 0
+                                      });
+                  });
+              }
             }, 
 
             createHTML : function() {
@@ -242,8 +273,11 @@
               var listHTML  = '';
               var selected  = false;
               $.each(this.options, function(index, option){
-                if(option.value) {
-                  var isActive = ((option.selected && _self.isMultiple) || (option.selected && !selected))? 'active': '';
+                if(option.type == 'optgroup') {
+                    listHTML += '<li class="'+_self.classes.listGroup.substring(1)+'">'+option.label+'</li>';
+                } else if(option.value) {
+                  var isActive  = ((option.selected && _self.isMultiple) || (option.selected && !selected))? 'active': '';
+                  isActive     += (_self.isOptGroup)? ' '+_self.classes.itemPad.substring(1): '';
                   listHTML += '<li class="'+_self.classes.listItem.substring(1)+' '+isActive+'">'+_self.getInputType(option.value)+' '+option.label+'</li>';
                   if(option.selected) {
                     _self.selected.push(option.value);
@@ -251,6 +285,7 @@
                   }
                 }
               });
+              if(this.isSearchable) listHTML += '<li class="'+_self.classes.noResult.substring(1)+'">No matching options</li>';
               return listHTML;
             },
 
@@ -261,13 +296,20 @@
             },
 
             filterList : function(value) {
+              var _self = this;
+              var found = false;
+              $(this.selectors.list).find(this.classes.noResult).hide();
+              if(this.isOptGroup) $(this.selectors.list).find(this.classes.listGroup).hide();
               $(this.selectors.list).find(this.classes.listItem).each(function(){
                 if(~$(this).text().toLowerCase().indexOf(value)) {
                   $(this).show();
+                  $(this).prevAll(_self.classes.listGroup+':first').show();
+                  found = true;
                 } else {
                   $(this).hide();
                 }
               });
+              if(!found) $(this.selectors.list).find(this.classes.noResult).show();
             },
 
             clearInputs : function() {
