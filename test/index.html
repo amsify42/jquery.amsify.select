@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Select - Amsify42</title>
+
+<!-- CDN links -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../css/amsify-select.css">
+
+<!-- Amsify Plugin -->
+<script type="text/javascript" src="../js/jquery.amsify.select.js"></script>
+</head>
+<body>
+<header>
+	<div class="container">
+		<h1 class="text-center">Jquery Selection</h1>
+	</div>
+</header>
+<div class="container" style="min-height:360px;">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 text-center">
+		<div class="form-group">
+			<select class="form-control" name="country">
+				<option value="">Select Country</option>
+				<option value="1">India</option>
+				<option value="2">Afghanistan</option>
+				<option value="3">USA</option>
+				<option value="4" selected>Russia</option>
+				<option value="5">South Africa</option>
+				<option value="6" selected=>West Indies</option>
+			</select>
+		</div>
+		<br><br>
+		<div class="form-group">
+			<select class="form-control" name="colors">
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White">White</option>
+				<option value="Red">Red</option>
+				<option value="Orange">Orange</option>
+				<option value="Blue">Blue</option>
+				<option value="Green">Green</option>
+			</select>
+		</div>
+		<br><br>
+		<h4>Already Selected</h4>
+		<div class="form-group">
+			<select class="form-control" name="colors2">
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White" selected>White</option>
+				<option value="Red">Red</option>
+				<option value="Orange">Orange</option>
+				<option value="Blue">Blue</option>
+				<option value="Green">Green</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<footer>
+	<div class="container">
+		<h1 class="text-left">Usage</h1>
+		<pre>
+			<code>
+				$('select').amsifySelect({
+					type : 'amsify'
+				});
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	$('select').amsifySelect({
+		type : 'amsify'
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Select - Amsify42</title>
+
+<!-- CDN links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/amsify-select.css">
+
+<!-- Amsify Plugin -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="../../js/jquery.amsify.select.js"></script>
+</head>
+
+
+<body>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h4 class="header center orange-text">Jquery Selection</h4>
+      <div class="row center">
+        <select class="browser-default" name="country">
+			<option value="">Select Country</option>
+			<option value="1">India</option>
+			<option value="2">Afghanistan</option>
+			<option value="3">USA</option>
+			<option value="4">Russia</option>
+			<option value="5">South Africa</option>
+			<option value="6">West Indies</option>
+		</select>
+      </div>
+      <br/>
+      <div class="row center">
+      	<select class="browser-default" name="colors">
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White">White</option>
+				<option value="Red">Red</option>
+				<option value="Orange">Orange</option>
+				<option value="Blue">Blue</option>
+				<option value="Green">Green</option>
+			</select>
+      </div>
+      <br><br>
+      <div class="row center">
+      	<select class="form-control" name="colors2">
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White" selected>White</option>
+				<option value="Red">Red</option>
+				<option value="Orange">Orange</option>
+				<option value="Blue">Blue</option>
+				<option value="Green">Green</option>
+			</select>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+<footer>
+	<div class="container">
+		<h4 class="text-left">Usage</h4>
+		<pre>
+			<code>
+				$('select').amsifySelect({
+					type: 'materialize'
+				});			
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	$('select').amsifySelect({
+		type: 'materialize'
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Select - Amsify42</title>
+
+<!-- CDN links -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../../css/amsify-select.css">
+
+<!-- Amsify Plugin -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script type="text/javascript" src="../../js/jquery.amsify.select.js"></script>
+</head>
+<body>
+<header>
+	<div class="container">
+		<h1 class="text-center">Jquery Selection - OptionGroup</h1>
+	</div>
+</header>
+<div class="container" style="min-height:360px;">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 text-center">
+		<div class="form-group">
+			<h4>Single</h4>
+			<select class="form-control" name="country">
+				<option value="">Select Country</option>
+				<optgroup label="Asia">
+					<option value="1">India</option>
+					<option value="2">Afghanistan</option>
+				</optgroup>
+				<optgroup label="America">
+					<option value="3">USA</option>
+					<option value="4">Canada</option>
+				</optgroup>
+				<optgroup label="Africa">
+					<option value="5">South Africa</option>
+					<option value="6">Nigeria</option>
+				</optgroup>
+			</select>
+		</div>
+		<div class="form-group">
+			<h4>Multiple</h4>
+			<select class="form-control" name="colors"  multiple="multiple">
+				<option value="">Select Color</option>
+				<optgroup label="Simple">
+					<option value="1">White</option>
+					<option value="2">Black</option>
+				</optgroup>
+				<optgroup label="Signal">
+					<option value="3">Green</option>
+					<option value="4">Red</option>
+				</optgroup>
+				<optgroup label="Nature">
+					<option value="5">Blue</option>
+					<option value="6">Orange</option>
+				</optgroup>
+			</select>
+		</div>
+		<h4>Already Selected</h4>
+		<div class="form-group">
+			<select class="form-control" name="colors2"  multiple="multiple">
+				<option value="">Select Color</option>
+				<optgroup label="Simple">
+					<option value="1">White</option>
+					<option value="2" selected="">Black</option>
+				</optgroup>
+				<optgroup label="Signal">
+					<option value="3">Green</option>
+					<option value="4" selected="">Red</option>
+				</optgroup>
+				<optgroup label="Nature">
+					<option value="5">Blue</option>
+					<option value="6">Orange</option>
+				</optgroup>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<footer>
+	<div class="container">
+		<h1 class="text-left">Usage</h1>
+		<pre>
+			<code>
+				$('select').amsifySelect();			
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	$('select').amsifySelect();
+</script>
+</body>
+</html>

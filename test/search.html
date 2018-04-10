@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Select - Amsify42</title>
+
+<!-- CDN links -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../css/amsify-select.css">
+
+<!-- Amsify Plugin -->
+<script type="text/javascript" src="../js/jquery.amsify.select.js"></script>
+</head>
+<body>
+<header>
+	<div class="container">
+		<h1 class="text-center">Jquery Selection - Search</h1>
+	</div>
+</header>
+<div class="container" style="min-height:360px;">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 text-center">
+		<div class="form-group">
+			<h4>Selection - Search</h4>
+			<select class="form-control" name="country" searchable>
+				<option value="">Select Country</option>
+				<option value="1">India</option>
+				<option value="2">Afghanistan</option>
+				<option value="4">USA</option>
+				<option value="5">Russia</option>
+				<option value="6">South Africa</option>
+				<option value="7">West Indies</option>
+
+				<option value="11">India 1</option>
+				<option value="21">Afghanistan 1</option>
+				<option value="41">USA 1</option>
+				<option value="51">Russia 1</option>
+				<option value="61">South Africa 1</option>
+				<option value="71">West Indies 1</option>
+
+				<option value="12">India 2</option>
+				<option value="22">Afghanistan 2</option>
+				<option value="42">USA 2</option>
+				<option value="52">Russia 2</option>
+				<option value="62">South Africa 2</option>
+				<option value="72">West Indies 2</option>
+			</select>
+		</div>
+		<br><br>
+		<div class="form-group">
+			<h4>Selection [Multiple] - Search</h4>
+			<select class="form-control" name="colors"  multiple="multiple" searchable>
+				<option value="">Select Color</option>
+				<option value="Black">Black</option>
+				<option value="White">White</option>
+				<option value="Red">Red</option>
+				<option value="Orange">Orange</option>
+				<option value="Blue">Blue</option>
+				<option value="Green">Green</option>
+
+				<option value="Black1">Black1</option>
+				<option value="White1">White1</option>
+				<option value="Red1">Red1</option>
+				<option value="Orange1">Orange1</option>
+				<option value="Blue">Blue</option>
+				<option value="Green1">Green1</option>
+
+				<option value="Black2">Black2</option>
+				<option value="White2">White2</option>
+				<option value="Red2">Red2</option>
+				<option value="Orange2">Orange2</option>
+				<option value="Blue2">Blue2</option>
+				<option value="Green2">Green2</option>
+			</select>
+		</div>
+		<br><br>
+		<div class="form-group">
+			<h4>Selection [optgroup][Multiple] - Search</h4>
+			<select class="form-control" name="country" multiple="multiple" searchable>
+				<option value="">Select Country</option>
+				<optgroup label="Asia">
+					<option value="1">India</option>
+					<option value="2">Afghanistan</option>
+					<option value="3">Bangladesh</option>
+					<option value="4">Nepal</option>
+					<option value="5">Sri Lanka</option>
+				</optgroup>
+				<optgroup label="America">
+					<option value="6">USA</option>
+					<option value="7">Canada</option>
+					<option value="8">West Indies</option>
+					<option value="9">Chile</option>
+					<option value="10">Argentina</option>
+				</optgroup>
+				<optgroup label="Africa">
+					<option value="11">South Africa</option>
+					<option value="12">Nigeria</option>
+					<option value="13">Algeria</option>
+					<option value="14">Somalia</option>
+					<option value="15">Sudan</option>
+				</optgroup>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<footer>
+	<div class="container">
+		<h1 class="text-left">Usage</h1>
+		<pre>
+			<code>
+				$('select').amsifySelect({
+					type : 'amsify'
+				});
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	$('select').amsifySelect({
+		type : 'amsify'
+	});
+</script>
+</body>
+</html>
