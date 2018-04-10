@@ -187,7 +187,11 @@
                 $this.toggle();
               });
               $(document).click(function(e) {
-                if(!$(e.target).hasClass(_self.classes.listItem.substring(1)) && !$(e.target).hasClass(_self.classes.clear.substring(1))) {
+                var isGroup   = $(e.target).hasClass(_self.classes.listGroup.substring(1));
+                var isItem    = $(e.target).hasClass(_self.classes.listItem.substring(1));
+                var isClear   = $(e.target).hasClass(_self.classes.clear.substring(1));
+                var isSearch  = $(e.target).hasClass(_self.classes.search.substring(1));
+                if(!isGroup && !isItem && !isClear && !isSearch) {
                   $(_self.selectors.listArea).hide();
                 }
               });
