@@ -180,8 +180,16 @@
               var _self = this;
               $(this.selectors.labelArea).attr('style', $(this.select).attr('style'))
                                          .addClass($(this.select).attr('class'));
-              $(this.selectors.labelArea).click(function(){
-                  $(this).parent().find(_self.classes.listArea).toggle();
+              $(this.selectors.labelArea).click(function(e){
+                e.stopPropagation();
+                $this = $(this).parent().find(_self.classes.listArea);
+                $(_self.classes.listArea).not($this).hide();
+                $this.toggle();
+              });
+              $(document).click(function(e) {
+                if(!$(e.target).hasClass(_self.classes.listItem.substring(1)) && !$(e.target).hasClass(_self.classes.clear.substring(1))) {
+                  $(_self.selectors.listArea).hide();
+                }
               });
               $(this.selectors.close).click(function(){
                  $(this).closest(_self.classes.listArea).hide(); 
