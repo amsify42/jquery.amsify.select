@@ -1,8 +1,14 @@
+/**
+ * Amsify Jquery Select 1.1
+ * http://www.amsify42.com
+ */
 (function($) {
 
     $.fn.amsifySelect = function(options) {
-
-        // merging default settings with custom
+        /**
+         * Merging default settings with custom
+         * @type {object}
+         */
         var settings = $.extend({
             type        : 'bootstrap',
             labelLimit  : 5,
@@ -77,7 +83,6 @@
            this.clearClass    = null;
            this.closeClass    = null;
         };
-
 
         AmsifySelect.prototype = {
             /**
