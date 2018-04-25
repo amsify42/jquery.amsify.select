@@ -1,5 +1,6 @@
 /**
  * Amsify Jquery Select 1.1
+ * https://github.com/amsify42/jquery.amsify.select
  * http://www.amsify42.com
  */
 (function($) {
