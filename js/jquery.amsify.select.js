@@ -1,5 +1,6 @@
 /**
  * Amsify Jquery Select 1.1
+ * https://github.com/amsify42/jquery.amsify.select
  * http://www.amsify42.com
  */
 (function($) {
@@ -14,7 +15,6 @@
             labelLimit  : 5,
             limit       : 30,
             searchable  : false,
-            suggestible : false,
             classes     : {
               clear : '',
               close : '',
@@ -81,7 +81,6 @@
            this.isMultiple    = false;
            this.isOptGroup    = false;
            this.isSearchable  = false;
-           this.isSuggestible = false;
            this.clearClass    = null;
            this.closeClass    = null;
         };
@@ -92,12 +91,11 @@
              * @param  {selector} form
              */
             _init : function(selector) {
-                this.select         = selector;
-                this.name           = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
-                this.isSearchable   = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
-                this.isSuggestible  = ($(selector).attr('suggestible') !== undefined)? true: settings.suggestible;
-                this.clearClass     = (settings.classes.clear)? settings.classes.clear: this.defaultClass[settings.type].clear;
-                this.closeClass     = (settings.classes.close)? settings.classes.close: this.defaultClass[settings.type].close;
+                this.select       = selector;
+                this.name         = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
+                this.isSearchable = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
+                this.clearClass   = (settings.classes.clear)? settings.classes.clear: this.defaultClass[settings.type].clear;
+                this.closeClass   = (settings.classes.close)? settings.classes.close: this.defaultClass[settings.type].close;
                 this.extractData();
                 this.createHTML();
                 this.setEvents();
@@ -150,16 +148,9 @@
               this.selectors.labelArea  = $(labelHTML).appendTo(this.selectors.selectArea);
 
               this.defaultLabel         = (this.options[0].value)? this.defaultLabel: this.options[0].label;
-              if(this.isSuggestible) {
-                $(this.selectors.labelArea)
-                .css({'text-align':'left'})
-                .attr('contentEditable', 'true')
-                .attr('placeholder', this.defaultLabel);
-              } else  {
-                var label                 = '<div class="'+this.classes.label.substring(1)+'">'+this.defaultLabel+'</div>';
-                this.selectors.label      = $(label).appendTo(this.selectors.labelArea);
-                this.selectors.toggle     = $(this.toggleIcon()).appendTo(this.selectors.labelArea);
-              }
+              var label                 = '<div class="'+this.classes.label.substring(1)+'">'+this.defaultLabel+'</div>';
+              this.selectors.label      = $(label).appendTo(this.selectors.labelArea);
+              this.selectors.toggle     = $(this.toggleIcon()).appendTo(this.selectors.labelArea);
 
               var listArea              = '<div class="'+this.classes.listArea.substring(1)+'"></div>';
               this.selectors.listArea   = $(listArea).appendTo(this.selectors.selectArea);
@@ -195,14 +186,12 @@
               var _self = this;
               $(this.selectors.labelArea).attr('style', $(this.select).attr('style'))
                                          .addClass($(this.select).attr('class'));
-              if(!this.isSuggestible) {                           
-                $(this.selectors.labelArea).click(function(e){
-                  e.stopPropagation();
-                  $this = $(this).parent().find(_self.classes.listArea);
-                  $(_self.classes.listArea).not($this).hide();
-                  $this.toggle();
-                });
-              }
+              $(this.selectors.labelArea).click(function(e){
+                e.stopPropagation();
+                $this = $(this).parent().find(_self.classes.listArea);
+                $(_self.classes.listArea).not($this).hide();
+                $this.toggle();
+              });
               $(document).click(function(e) {
                 var isGroup   = $(e.target).hasClass(_self.classes.listGroup.substring(1));
                 var isItem    = $(e.target).hasClass(_self.classes.listItem.substring(1));
@@ -238,19 +227,6 @@
                 $(this.selectors.search).keyup(function(){
                   var value = $.trim($(this).val().toLowerCase());
                   _self.filterList(value);
-                });
-              } else if(this.isSuggestible) {
-                $(this.selectors.labelArea).keyup(function(){
-                    var value = $.trim($(this).html().toLowerCase());
-                    //$(this).addClass('searching');
-                    $this = $(this).parent().find(_self.classes.listArea);
-                    $(_self.classes.listArea).not($this).hide();
-                    $this.show();
-                    _self.filterList(value);
-                });
-                $(this.selectors.labelArea).focusout(function(){
-                    var value = $.trim($(this).html().toLowerCase());
-                    _self.filterList(value);
                 });
               }
               $(this.selectors.clear).click(function(){
@@ -295,20 +271,8 @@
                 }
               });
               label = (values.length >= settings.labelLimit)? values.length+' selected': label.slice(0, -2);
-              if(this.isSuggestible)
-                $(this.selectors.labelArea).html(this.convertToTags(label));
-              else
-                $(this.selectors.label).text(label);
+              $(this.selectors.label).text(label);
               console.info($(this.select).val());
-            },
-
-            convertToTags : function(label) {
-              var labelArray = label.split(',');
-              var labelTags  = '';
-              $.each(labelArray, function(index, label){
-                  labelTags += '<span class="amsify-select-tag">'+$.trim(label)+'</span>';
-              });
-              return labelTags;
             },
 
             toggleIcon : function() {
@@ -339,7 +303,7 @@
                   }
                 }
               });
-              if(this.isSearchable || this.isSuggestible) listHTML += '<li class="'+_self.classes.noResult.substring(1)+'">No matching options</li>';
+              if(this.isSearchable) listHTML += '<li class="'+_self.classes.noResult.substring(1)+'">No matching options</li>';
               return listHTML;
             },
 
@@ -370,10 +334,7 @@
               $(this.select).find(':selected').attr('selected', false);
               $(this.selectors.list).find(this.classes.listItem).removeClass('active');
               $(this.selectors.list).find(this.classes.inputType).prop('checked', false);
-              if(this.isSuggestible)
-                $(this.selectors.labelArea).html('');
-              else
-                $(this.selectors.label).text(this.defaultLabel);
+              $(this.selectors.label).text(this.defaultLabel);
               /**
                * If searchable
                */
