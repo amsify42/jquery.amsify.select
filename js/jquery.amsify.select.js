@@ -5,7 +5,7 @@
  */
 (function($) {
 
-    $.fn.amsifySelect = function(options) {
+    $.fn.amsifySelect = function(options, method) {
         /**
          * Merging default settings with custom
          * @type {object}
@@ -91,15 +91,17 @@
              * @param  {selector} form
              */
             _init : function(selector) {
-                this.select       = selector;
-                this.name         = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
-                this.isSearchable = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
-                this.clearClass   = (settings.classes.clear)? settings.classes.clear: this.defaultClass[settings.type].clear;
-                this.closeClass   = (settings.classes.close)? settings.classes.close: this.defaultClass[settings.type].close;
-                this.extractData();
-                this.createHTML();
-                this.setEvents();
-                $(this.select).hide();
+                if(this.refresh(selector, method)) {
+                  this.select       = selector;
+                  this.name         = ($(selector).attr('name'))? $(selector).attr('name')+'_amsify': 'amsify_selection';
+                  this.isSearchable = ($(selector).attr('searchable') !== undefined)? true: settings.searchable;
+                  this.clearClass   = (settings.classes.clear)? settings.classes.clear: this.defaultClass[settings.type].clear;
+                  this.closeClass   = (settings.classes.close)? settings.classes.close: this.defaultClass[settings.type].close;
+                  this.extractData();
+                  this.createHTML();
+                  this.setEvents();
+                  $(this.select).hide();
+                }
             },
 
             extractData : function() {
@@ -351,6 +353,17 @@
                 $(this.selectors.search).css('max-height', '28px');
               } else if(settings.type == 'bootstrap') {
                 $(this.selectors.search).css('width', '100%');
+              }
+            },
+
+            refresh : function(selector, method) {
+              $findArea = $(selector).next(this.classes.selectArea);
+              if($findArea.length)  $findArea.remove();
+              $(selector).show();
+              if(typeof method !== undefined && method == 'destroy') {
+                return false;
+              } else {
+                return true;
               }
             },
            

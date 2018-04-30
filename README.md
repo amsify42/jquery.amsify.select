@@ -12,6 +12,7 @@ This is a simple jquery plugin for input type selection. You can initialize the 
 3. [Option Group](#option-group)
 4. [Searchable](#search-selection)
 5. [Settings](#settings)
+6. [Refresh Destroy](#refresh-destroy)
 
 ## Simple Selection
 For simple selection, your html select input can be
@@ -129,4 +130,17 @@ If you want, you can pass css classes to the buttons we are rendering in this pl
 			close: 'btn btn-danger',
 		}
 	});
+```
+
+## Refresh Destroy
+For refreshing the values, you can use
+```js
+	var params = {
+		// Make sure you have parameters which used during first execution
+	};
+	$('select[name="country"]').amsifySelect(params, 'refresh');
+```
+For destroying the instance, you can do
+```js
+	$('select[name="country"]').amsifySelect({}, 'destory');
 ```
