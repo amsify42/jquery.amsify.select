@@ -33,6 +33,7 @@
               selectArea    : '.amsify-selection-area',
               labelArea     : '.amsify-selection-label',
               labelDefault  : '.amsify-selection-label-default',
+              labelMaterial : '.amsify-selection-label-material',
               label         : '.amsify-label',
               toggle        : '.amsify-toggle-selection',
               listArea      : '.amsify-selection-list',
@@ -283,7 +284,6 @@
                 } else if(settings.type == 'materialize') {
                   return '<i class="'+this.classes.toggle.substring(1)+' material-icons">arrow_drop_down</i>';
                 } else {
-                  $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
                   return '<span class="'+this.classes.toggle.substring(1)+'">&#x25BC;</span>';
                 }
             },
@@ -348,11 +348,13 @@
 
             fixCSS : function() {
               if(settings.type == 'materialize') {
-                $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1)).css({'min-height': '36px', 'padding': '5px 5px'});
+                $(this.selectors.labelArea).addClass(this.classes.labelMaterial.substring(1));
                 $(this.selectors.searchArea).css('max-height', '46px');
                 $(this.selectors.search).css('max-height', '28px');
               } else if(settings.type == 'bootstrap') {
                 $(this.selectors.search).css('width', '100%');
+              } else {
+                $(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
               }
             },
 
