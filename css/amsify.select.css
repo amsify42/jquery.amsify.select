@@ -7,6 +7,14 @@
 }
 
 .amsify-selection-area
+.amsify-selection-label-material {
+	cursor: pointer;
+    border: 1px solid #cccccc;
+    min-height: 36px;
+    padding: 5px 5px;
+}
+
+.amsify-selection-area
 .amsify-selection-label
 .amsify-label {
 	float: left;
@@ -16,7 +24,6 @@
 .amsify-selection-area
 .amsify-selection-label {
 	cursor: pointer;
-	min-height: 20px;
 }
 
 .amsify-toggle-selection {
@@ -29,6 +36,7 @@
 	position: absolute;
 	background: white;
 	border: 1px solid #dedede;
+	z-index: 1;
 }
 
 .amsify-selection-area
