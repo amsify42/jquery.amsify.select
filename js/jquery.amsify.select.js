@@ -275,6 +275,7 @@
               });
               label = (values.length >= settings.labelLimit)? values.length+' selected': label.slice(0, -2);
               $(this.selectors.label).text(label);
+              $(this.select).change();
               console.info($(this.select).val());
             },
 
