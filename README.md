@@ -1,9 +1,19 @@
-Amsify Jquery Selection Input
+Jquery Selection Input
 -----------------------------
 
-This is a simple jquery plugin for input type selection. You can initialize the plugin in this way
+Jquery plugin for input type select. You can initialize the plugin in this way
 ```js
 	$('select').amsifySelect();
+```
+for
+```html
+<select>
+	<option value="">Select</option>
+	<option value="India">India</option>
+	<option value="Afghanistan">Afghanistan</option>
+	<option value="USA">USA</option>
+	<option value="Russia">Russia</option>
+</select>
 ```
 
 # Table of Contents
@@ -13,6 +23,7 @@ This is a simple jquery plugin for input type selection. You can initialize the 
 4. [Searchable](#search-selection)
 5. [Settings](#settings)
 6. [Refresh Destroy](#refresh-destroy)
+7. [Instantiating](#instantiating)
 
 ## Simple Selection
 For simple selection, your html select input can be
@@ -144,3 +155,20 @@ For destroying the instance, you can do
 ```js
 	$('select[name="country"]').amsifySelect({}, 'destory');
 ```
+
+## Instantiating
+This is also one of the approach you can use this plugin.
+### Initilization
+You can initialize by creating an instance of `AmsifySelect` and passing selector to it.
+```js
+amsifySelect = new AmsifySelect($('input[name="country"]'));
+amsifySelect._init();
+```
+### Settings
+You need to set it before initialization and you can use all the setting options shown in previous approach.
+```js
+amsifySelect._settings({
+	searchable: true
+})
+amsifySelect._init();
+````
