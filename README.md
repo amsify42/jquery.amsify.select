@@ -169,6 +169,6 @@ You need to set it before initialization and you can use all the setting options
 ```js
 amsifySelect._settings({
 	searchable: true
-})
+});
 amsifySelect._init();
 ````
