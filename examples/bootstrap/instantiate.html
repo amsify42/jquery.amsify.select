@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Select - Amsify42</title>
+
+<!-- CDN links -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../../css/amsify.select.css">
+
+<!-- Amsify Plugin -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script type="text/javascript" src="../../js/jquery.amsifyselect.js"></script>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1 class="text-center">Jquery Selection - Instantiate</h1>
+    </div>
+</header>
+<div class="container" style="min-height:360px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-center">
+        <div class="form-group">
+            <h4>Single</h4>
+            <select class="form-control" name="country">
+                <option value="">Select Country</option>
+                <option value="1">India</option>
+                <option value="2">Afghanistan</option>
+                <option value="3">USA</option>
+                <option value="4">Canada</option>
+                <option value="5">South Africa</option>
+                <option value="6">Nigeria</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h4>Multiple</h4>
+            <select class="form-control" name="colors"  multiple="multiple">
+                <option value="">Select Color</option>
+                <option value="1">White</option>
+                <option value="2" selected="">Black</option>
+                <option value="3">Green</option>
+                <option value="4">Red</option>
+                <option value="5">Blue</option>
+                <option value="6">Orange</option>
+            </select>
+        </div>
+        <h4>Optgroup</h4>
+        <div class="form-group">
+            <select class="form-control" name="colors2"  multiple="multiple">
+                <option value="">Select Color</option>
+                <optgroup label="Simple">
+                    <option value="1">White</option>
+                    <option value="2">Black</option>
+                </optgroup>
+                <optgroup label="Signal">
+                    <option value="3">Green</option>
+                    <option value="4">Red</option>
+                </optgroup>
+                <optgroup label="Nature">
+                    <option value="5">Blue</option>
+                    <option value="6">Orange</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="form-group">
+            <h4>Search</h4>
+            <select class="form-control" name="colors3"  searchable>
+                <option value="">Select Color</option>
+                <option value="1">White</option>
+                <option value="2">Black</option>
+                <option value="3">Green</option>
+                <option value="4">Red</option>
+                <option value="5">Blue</option>
+                <option value="6">Orange</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<footer>
+    <div class="container">
+        <h1 class="text-left">Usage</h1>
+        <pre>
+            <code>
+                var selectCountries = new AmsifySelect($('select[name="country"]'));
+                selectCountries._init();
+
+                var selectColors = new AmsifySelect($('select[name="colors"]'));
+                selectColors._init();
+
+                var selectColors2 = new AmsifySelect($('select[name="colors2"]'));
+                selectColors2._init();
+
+                var selectColors3 = new AmsifySelect($('select[name="colors3"]'));
+                selectColors3._init();        
+            </code>
+        </pre>
+    </div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+    var selectCountries = new AmsifySelect($('select[name="country"]'));
+    selectCountries._init();
+
+    var selectColors = new AmsifySelect($('select[name="colors"]'));
+    selectColors._init();
+
+    var selectColors2 = new AmsifySelect($('select[name="colors2"]'));
+    selectColors2._init();
+
+    var selectColors3 = new AmsifySelect($('select[name="colors3"]'));
+    selectColors3._init();
+</script>
+</body>
+</html>
