@@ -1,10 +1,15 @@
 Jquery Selection Input
 -----------------------------
-
 Jquery plugin for input type select. You can initialize the plugin in this way
 ```js
 	$('select').amsifySelect();
 ```
+
+## npm installation
+```cmd
+npm i amsifyselect
+```
+
 for
 ```html
 <select>
