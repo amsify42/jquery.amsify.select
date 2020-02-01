@@ -1,0 +1,33 @@
+{
+  "name": "amsifyselect",
+  "version": "1.1.0",
+  "dependencies": {
+    "jquery": ">=3.4.0"
+  },
+  "description": "Jquery plugin for input type select. You can initialize the plugin in this way",
+  "main": "./js/jquery.amsify.select.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amsify42/jquery.amsify.select.git"
+  },
+  "keywords": [
+    "jquery",
+    "amsify42",
+    "amsify42select"
+  ],
+  "author": "amsify42",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amsify42/jquery.amsify.select/issues"
+  },
+  "homepage": "https://github.com/amsify42/jquery.amsify.select#readme",
+  "style": [
+    "./node_modules/amsifyselect/css/amsify.select.css"
+  ]
+}
