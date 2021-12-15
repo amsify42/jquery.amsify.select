@@ -209,10 +209,10 @@ var Amsifyselect;
 			var operations            = '<div class="'+this.classes.operations.substring(1)+'"></div>';
 			this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
 
-			var clear                 = '<button class="'+this.classes.clear.substring(1)+' '+this.clearClass+'">Clear</button>';
+			var clear                 = '<button type="button" class="'+this.classes.clear.substring(1)+' '+this.clearClass+'">Clear</button>';
 			this.selectors.clear      = $(clear).appendTo(this.selectors.operations);
 
-			var close                 = '<button class="'+this.classes.close.substring(1)+' '+this.closeClass+'">Close</button>';
+			var close                 = '<button type="button" class="'+this.classes.close.substring(1)+' '+this.closeClass+'">Close</button>';
 			this.selectors.close      = $(close).appendTo(this.selectors.operations);
 			$(this.createList()).appendTo(this.selectors.list);
 			this.fixCSS();
@@ -310,6 +310,9 @@ var Amsifyselect;
 			label = (values.length >= this.settings.labelLimit)? values.length+' selected': label.slice(0, -2);
 			$(this.selectors.label).text(label);
 			$(this.selector).change();
+			if(!_self.isMultiple) {
+				$(this.selectors.listArea).hide();
+			}
 			console.info($(this.selector).val());
         },
 
