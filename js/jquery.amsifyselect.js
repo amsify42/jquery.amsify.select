@@ -86,6 +86,7 @@ var Amsifyselect;
 		this.isMultiple    = false;
 		this.isOptGroup    = false;
 		this.isSearchable  = false;
+		this.isHideButtons = null;
 		this.clearClass    = null;
 		this.closeClass    = null;
 	};
@@ -109,6 +110,7 @@ var Amsifyselect;
 				this.name         = $(this.selector).attr('name')? $(this.selector).attr('name')+'_amsify': 'amsify_selection';
 				this.id           = ($(this.selector).attr('id') !== undefined) ? $(this.selector).attr('id')+'_amsify_selection_area': null;
 				this.isSearchable = ($(this.selector).attr('searchable') !== undefined)? true: this.settings.searchable;
+				this.isHideButtons = (this.settings.hideButtons === true)
 				this.clearClass   = (this.settings.classes.clear)? this.settings.classes.clear: this.defaultClass[this.settings.type].clear;
 				this.closeClass   = (this.settings.classes.close)? this.settings.classes.close: this.defaultClass[this.settings.type].close;
 				this.extractData();
@@ -208,8 +210,10 @@ var Amsifyselect;
 			var list                  = '<ul class="'+this.classes.list.substring(1)+'"></ul>';
 			this.selectors.list       = $(list).appendTo(this.selectors.listArea);
 
-			var operations            = '<div class="'+this.classes.operations.substring(1)+'"></div>';
-			this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
+			if (!this.isHideButtons) {
+				var operations = '<div class="'+this.classes.operations.substring(1)+'"></div>';
+				this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
+			}
 
 			var clear                 = '<button type="button" class="'+this.classes.clear.substring(1)+' '+this.clearClass+'">Clear</button>';
 			this.selectors.clear      = $(clear).appendTo(this.selectors.operations);
