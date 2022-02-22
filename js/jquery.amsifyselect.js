@@ -31,6 +31,7 @@ var Amsifyselect;
 			}
 		};
 		this.name          	= null;
+		this.id     		= null;
 		this.defaultLabel  	= 'Select';
 		this.classes       	= {
 		    selectArea    : '.amsify-selection-area',
@@ -106,6 +107,7 @@ var Amsifyselect;
         _init : function() {
             if(this.checkMethod()) {
 				this.name         = $(this.selector).attr('name')? $(this.selector).attr('name')+'_amsify': 'amsify_selection';
+				this.id           = ($(this.selector).attr('id') !== undefined) ? $(this.selector).attr('id')+'_amsify_selection_area': null;
 				this.isSearchable = ($(this.selector).attr('searchable') !== undefined)? true: this.settings.searchable;
 				this.clearClass   = (this.settings.classes.clear)? this.settings.classes.clear: this.defaultClass[this.settings.type].clear;
 				this.closeClass   = (this.settings.classes.close)? this.settings.classes.close: this.defaultClass[this.settings.type].close;
@@ -178,7 +180,7 @@ var Amsifyselect;
 		},
 
         createHTML : function() {
-			var HTML                  = '<div class="'+this.classes.selectArea.substring(1)+'"></div>';
+			var HTML                  = '<div '+this.getSelectionAreaId()+' class="'+this.classes.selectArea.substring(1)+'"></div>';
 			this.selectors.selectArea = $(HTML).insertAfter(this.selector);
 			var labelHTML             = '<div class="'+this.classes.labelArea.substring(1)+'"></div>';
 			this.selectors.labelArea  = $(labelHTML).appendTo(this.selectors.selectArea);
@@ -408,6 +410,10 @@ var Amsifyselect;
 				$(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
 			}
         },
+
+		getSelectionAreaId : function() {
+        	return this.id ? 'id="' + this.id + '"' : ''
+		},
 
         refresh : function() {
 			this._setMethod('refresh');
