@@ -4,8 +4,6 @@
  * http://www.amsify42.com
  */
 
-var Amsifyselect;
-
 (function(factory){
 	if(typeof module === 'object' && typeof module.exports === 'object') {
 		factory(require('jquery'), window, document);
@@ -80,7 +78,6 @@ var Amsifyselect;
 		    clear       : null,
 		    close       : null,
 		};
-		this.selectionArea = '.amsify-selection-area';
 		this.options       = [];
 		this.selected      = [];
 		this.isMultiple    = false;
@@ -122,8 +119,8 @@ var Amsifyselect;
 
         extractData : function() {
           	var _self = this;
-          	this.isMultiple = $(this.selector).prop('multiple')? true : false;
-          	this.isOptGroup = $(this.selector).find('optgroup').length? true: false;
+          	this.isMultiple = !!$(this.selector).prop('multiple');
+          	this.isOptGroup = !!$(this.selector).find('optgroup').length;
 
           	if(this.isOptGroup) {
             	$firstItem    = $(this.selector).find('option:first');
@@ -155,7 +152,7 @@ var Amsifyselect;
 			if(this.options.length) {
 				$.each(this.options, function(i, e) {
 					if(typeof e === 'object') {
-						if(e.value == $(option).val()) {
+						if(e.value === $(option).val()) {
 							present = true;
 							key = i;
 							return false;
@@ -248,7 +245,7 @@ var Amsifyselect;
 			$(this.selectors.list).find(this.classes.listItem).click(function(){
 				$(_self.selectors.list).find(_self.classes.listItem).removeClass('active');
 				$input      = $(this).find(_self.classes.inputType);
-				var checked = ($input.is(':checked'))? false: true;
+				var checked = !($input.is(':checked'));
 				$input.prop('checked', checked);
 				var values  = $('input[name="'+_self.name+'"]:checked').map(function(){
 				    return $(this).val();
@@ -323,9 +320,9 @@ var Amsifyselect;
         },
 
         toggleIcon : function() {
-			if(this.settings.type == 'bootstrap') {
+			if(this.settings.type === 'bootstrap') {
 				return '<span class="'+this.classes.toggle.substring(1)+' fa fa-chevron-down"></span>';
-			} else if(this.settings.type == 'materialize') {
+			} else if(this.settings.type === 'materialize') {
 				return '<i class="'+this.classes.toggle.substring(1)+' material-icons">arrow_drop_down</i>';
 			} else {
 				return '<span class="'+this.classes.toggle.substring(1)+'">&#x25BC;</span>';
@@ -337,7 +334,7 @@ var Amsifyselect;
 			var listHTML  = '';
 			var selected  = false;
 			$.each(this.options, function(index, option){
-				if(option.type == 'optgroup') {
+				if(option.type === 'optgroup') {
 					listHTML += '<li class="'+_self.classes.listGroup.substring(1)+'">'+option.label+'</li>';
 				} else if(option.value) {
 					var isActive = ((option.selected && _self.isMultiple) || (option.selected && !selected))? 'active': '';
@@ -362,6 +359,8 @@ var Amsifyselect;
 		},
 
 		filterList : function(value) {
+        	console.log("BEF FILTER WITH VAL: " + value + " AT " + Date.now())
+			const _self = this;
 			var found = false;
 
 			$(this.selectors.list).find(this.classes.noResult).hide();
@@ -381,12 +380,20 @@ var Amsifyselect;
 			});
 
 			lis.each(function(index, el){
-				el.style.display = matchingLisIndices.includes(index) ? 'list-item' : 'none'
+				if (matchingLisIndices.includes(index)) {
+					el.style.display = 'list-item'
+					if (_self.isOptGroup) {
+						$(el).prevAll(_self.classes.listGroup + ':first').show();
+					}
+				} else {
+					el.style.display = 'none'
+				}
 			});
 
 			if(!found) {
 				$(this.selectors.list).find(this.classes.noResult).show();
 			}
+			console.log("AFT FILTER WITH VAL: " + value + " AT " + Date.now())
 		},
 
         clearInputs : function() {
@@ -404,11 +411,11 @@ var Amsifyselect;
         },
 
         fixCSS : function() {
-			if(this.settings.type == 'materialize') {
+			if(this.settings.type === 'materialize') {
 				$(this.selectors.labelArea).addClass(this.classes.labelMaterial.substring(1));
 				$(this.selectors.searchArea).css('max-height', '46px');
 				$(this.selectors.search).css('max-height', '28px');
-			} else if(this.settings.type == 'bootstrap') {
+			} else if(this.settings.type === 'bootstrap') {
 				$(this.selectors.search).css('width', '100%');
 			} else {
 				$(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
@@ -435,11 +442,7 @@ var Amsifyselect;
 				$findArea.remove();
 			}
 			$(this.selector).show();
-			if(this.method == 'destroy') {
-				return false;
-			} else {
-				return true;
-			}
+			return !(this.method === 'destroy')
         },
 
 	};
