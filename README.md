@@ -136,7 +136,6 @@ Label limit will limit the number of labels to be shown in selection area when i
 ```
 Default labelLimit is 5.
 
-
 ### 4. Button Clases
 If you want, you can pass css classes to the buttons we are rendering in this plugin.
 ```js
@@ -145,6 +144,14 @@ If you want, you can pass css classes to the buttons we are rendering in this pl
 			clear: 'btn btn-primary',
 			close: 'btn btn-danger',
 		}
+	});
+```
+
+### 5. Hide Buttons
+If you want, you can hide the buttons we are rendering in this plugin.
+```js
+	$('select').amsifySelect({ 
+		hideButtons: true
 	});
 ```
 
