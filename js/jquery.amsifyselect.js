@@ -4,8 +4,6 @@
  * http://www.amsify42.com
  */
 
-var Amsifyselect;
-
 (function(factory){
 	if(typeof module === 'object' && typeof module.exports === 'object') {
 		factory(require('jquery'), window, document);
@@ -31,6 +29,7 @@ var Amsifyselect;
 			}
 		};
 		this.name          	= null;
+		this.id     		= null;
 		this.defaultLabel  	= 'Select';
 		this.classes       	= {
 		    selectArea    : '.amsify-selection-area',
@@ -79,12 +78,12 @@ var Amsifyselect;
 		    clear       : null,
 		    close       : null,
 		};
-		this.selectionArea = '.amsify-selection-area';
 		this.options       = [];
 		this.selected      = [];
 		this.isMultiple    = false;
 		this.isOptGroup    = false;
 		this.isSearchable  = false;
+		this.isHideButtons = null;
 		this.clearClass    = null;
 		this.closeClass    = null;
 	};
@@ -106,7 +105,9 @@ var Amsifyselect;
         _init : function() {
             if(this.checkMethod()) {
 				this.name         = $(this.selector).attr('name')? $(this.selector).attr('name')+'_amsify': 'amsify_selection';
+				this.id           = ($(this.selector).attr('id') !== undefined) ? $(this.selector).attr('id')+'_amsify_selection_area': null;
 				this.isSearchable = ($(this.selector).attr('searchable') !== undefined)? true: this.settings.searchable;
+				this.isHideButtons = (this.settings.hideButtons === true)
 				this.clearClass   = (this.settings.classes.clear)? this.settings.classes.clear: this.defaultClass[this.settings.type].clear;
 				this.closeClass   = (this.settings.classes.close)? this.settings.classes.close: this.defaultClass[this.settings.type].close;
 				this.extractData();
@@ -118,8 +119,8 @@ var Amsifyselect;
 
         extractData : function() {
           	var _self = this;
-          	this.isMultiple = $(this.selector).prop('multiple')? true : false;
-          	this.isOptGroup = $(this.selector).find('optgroup').length? true: false;
+          	this.isMultiple = !!$(this.selector).prop('multiple');
+          	this.isOptGroup = !!$(this.selector).find('optgroup').length;
 
           	if(this.isOptGroup) {
             	$firstItem    = $(this.selector).find('option:first');
@@ -151,7 +152,7 @@ var Amsifyselect;
 			if(this.options.length) {
 				$.each(this.options, function(i, e) {
 					if(typeof e === 'object') {
-						if(e.value == $(option).val()) {
+						if(e.value === $(option).val()) {
 							present = true;
 							key = i;
 							return false;
@@ -178,7 +179,7 @@ var Amsifyselect;
 		},
 
         createHTML : function() {
-			var HTML                  = '<div class="'+this.classes.selectArea.substring(1)+'"></div>';
+			var HTML                  = '<div '+this.getSelectionAreaId()+' class="'+this.classes.selectArea.substring(1)+'"></div>';
 			this.selectors.selectArea = $(HTML).insertAfter(this.selector);
 			var labelHTML             = '<div class="'+this.classes.labelArea.substring(1)+'"></div>';
 			this.selectors.labelArea  = $(labelHTML).appendTo(this.selectors.selectArea);
@@ -206,8 +207,10 @@ var Amsifyselect;
 			var list                  = '<ul class="'+this.classes.list.substring(1)+'"></ul>';
 			this.selectors.list       = $(list).appendTo(this.selectors.listArea);
 
-			var operations            = '<div class="'+this.classes.operations.substring(1)+'"></div>';
-			this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
+			if (!this.isHideButtons) {
+				var operations = '<div class="'+this.classes.operations.substring(1)+'"></div>';
+				this.selectors.operations = $(operations).appendTo(this.selectors.listArea);
+			}
 
 			var clear                 = '<button type="button" class="'+this.classes.clear.substring(1)+' '+this.clearClass+'">Clear</button>';
 			this.selectors.clear      = $(clear).appendTo(this.selectors.operations);
@@ -242,7 +245,7 @@ var Amsifyselect;
 			$(this.selectors.list).find(this.classes.listItem).click(function(){
 				$(_self.selectors.list).find(_self.classes.listItem).removeClass('active');
 				$input      = $(this).find(_self.classes.inputType);
-				var checked = ($input.is(':checked'))? false: true;
+				var checked = !($input.is(':checked'));
 				$input.prop('checked', checked);
 				var values  = $('input[name="'+_self.name+'"]:checked').map(function(){
 				    return $(this).val();
@@ -317,9 +320,9 @@ var Amsifyselect;
         },
 
         toggleIcon : function() {
-			if(this.settings.type == 'bootstrap') {
+			if(this.settings.type === 'bootstrap') {
 				return '<span class="'+this.classes.toggle.substring(1)+' fa fa-chevron-down"></span>';
-			} else if(this.settings.type == 'materialize') {
+			} else if(this.settings.type === 'materialize') {
 				return '<i class="'+this.classes.toggle.substring(1)+' material-icons">arrow_drop_down</i>';
 			} else {
 				return '<span class="'+this.classes.toggle.substring(1)+'">&#x25BC;</span>';
@@ -331,7 +334,7 @@ var Amsifyselect;
 			var listHTML  = '';
 			var selected  = false;
 			$.each(this.options, function(index, option){
-				if(option.type == 'optgroup') {
+				if(option.type === 'optgroup') {
 					listHTML += '<li class="'+_self.classes.listGroup.substring(1)+'">'+option.label+'</li>';
 				} else if(option.value) {
 					var isActive = ((option.selected && _self.isMultiple) || (option.selected && !selected))? 'active': '';
@@ -356,24 +359,41 @@ var Amsifyselect;
 		},
 
 		filterList : function(value) {
-			var _self = this;
+        	console.log("BEF FILTER WITH VAL: " + value + " AT " + Date.now())
+			const _self = this;
 			var found = false;
+
 			$(this.selectors.list).find(this.classes.noResult).hide();
+
 			if(this.isOptGroup) {
 				$(this.selectors.list).find(this.classes.listGroup).hide();
 			}
-			$(this.selectors.list).find(this.classes.listItem).each(function(){
-				if(~$(this).text().toLowerCase().indexOf(value)) {
-					$(this).show();
-					$(this).prevAll(_self.classes.listGroup+':first').show();
+
+			let lis = $(this.selectors.list).find(this.classes.listItem)
+			let matchingLisIndices = []
+
+			lis.each(function(index, el){
+				if(el.innerText.toLowerCase().indexOf(value) !== -1) {
+					matchingLisIndices.push(index)
 					found = true;
-				} else {
-					$(this).hide();
 				}
 			});
+
+			lis.each(function(index, el){
+				if (matchingLisIndices.includes(index)) {
+					el.style.display = 'list-item'
+					if (_self.isOptGroup) {
+						$(el).prevAll(_self.classes.listGroup + ':first').show();
+					}
+				} else {
+					el.style.display = 'none'
+				}
+			});
+
 			if(!found) {
 				$(this.selectors.list).find(this.classes.noResult).show();
 			}
+			console.log("AFT FILTER WITH VAL: " + value + " AT " + Date.now())
 		},
 
         clearInputs : function() {
@@ -391,16 +411,20 @@ var Amsifyselect;
         },
 
         fixCSS : function() {
-			if(this.settings.type == 'materialize') {
+			if(this.settings.type === 'materialize') {
 				$(this.selectors.labelArea).addClass(this.classes.labelMaterial.substring(1));
 				$(this.selectors.searchArea).css('max-height', '46px');
 				$(this.selectors.search).css('max-height', '28px');
-			} else if(this.settings.type == 'bootstrap') {
+			} else if(this.settings.type === 'bootstrap') {
 				$(this.selectors.search).css('width', '100%');
 			} else {
 				$(this.selectors.labelArea).addClass(this.classes.labelDefault.substring(1));
 			}
         },
+
+		getSelectionAreaId : function() {
+        	return this.id ? 'id="' + this.id + '"' : ''
+		},
 
         refresh : function() {
 			this._setMethod('refresh');
@@ -418,11 +442,7 @@ var Amsifyselect;
 				$findArea.remove();
 			}
 			$(this.selector).show();
-			if(this.method == 'destroy') {
-				return false;
-			} else {
-				return true;
-			}
+			return !(this.method === 'destroy')
         },
 
 	};
