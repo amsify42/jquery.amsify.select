@@ -26,7 +26,8 @@
 			classes: {
 				clear : '',
 				close : ''
-			}
+			},
+			consoleValue: false
 		};
 		this.name          	= null;
 		this.id     		= null;
@@ -316,7 +317,9 @@
 			if(!_self.isMultiple) {
 				$(this.selectors.listArea).hide();
 			}
-			console.info($(this.selector).val());
+			if(this.settings.consoleValue) {
+				console.info($(this.selector).val());
+			}
         },
 
         toggleIcon : function() {
