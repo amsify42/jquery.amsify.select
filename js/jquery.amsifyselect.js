@@ -362,7 +362,6 @@
 		},
 
 		filterList : function(value) {
-        	console.log("BEF FILTER WITH VAL: " + value + " AT " + Date.now())
 			const _self = this;
 			var found = false;
 
@@ -396,7 +395,6 @@
 			if(!found) {
 				$(this.selectors.list).find(this.classes.noResult).show();
 			}
-			console.log("AFT FILTER WITH VAL: " + value + " AT " + Date.now())
 		},
 
         clearInputs : function() {
