@@ -120,19 +120,20 @@
 
         extractData : function() {
           	var _self = this;
+
           	this.isMultiple = !!$(this.selector).prop('multiple');
           	this.isOptGroup = !!$(this.selector).find('optgroup').length;
+			this.options = [];
 
           	if(this.isOptGroup) {
-            	$firstItem    = $(this.selector).find('option:first');
-            	_self.options = [];
+            	$firstItem = $(this.selector).find('option:first');
             	if($firstItem.length) {
 	              	_self.options.push({
 	                                    type  : 'option',
 	                                    label : $firstItem.text(),
 	                                });
             	}
-	            $(this.selector).find('optgroup').each(function(index, optgroup){
+	            $(this.selector).find('optgroup').each(function(index, optgroup){ // TODO: same as below - for let opt (no Jquery)
 	              	_self.options.push({
 	                                    type  : 'optgroup',
 	                                    label : $(optgroup).attr('label'),
@@ -142,41 +143,21 @@
 	              	});
 	            });
           	} else {
-            	$(this.selector).find('option').each(function(index, option){
-            		_self.addOption(option);
-              	});
+				for (let opt of this.selector.childNodes) {
+					_self.addOption(opt);
+				}
           	}
         },
 
-        isOptionExist : function(option) {
-        	var key = null;
-			if(this.options.length) {
-				$.each(this.options, function(i, e) {
-					if(typeof e === 'object') {
-						if(e.value === $(option).val()) {
-							present = true;
-							key = i;
-							return false;
-						}
-					}
-				});
-			}
-			return key;
-		},
-
 		addOption: function(option) {
-			var key = this.isOptionExist(option);
-			var data= {
+			const data = {
 						type      : 'option',
 						value     : $(option).val(),
 						label     : $(option).text(),
 						selected  : ($(option).attr('selected') !== undefined)? 1 : 0
-			          };
-      		if(key === null) {
-				this.options.push(data);
-			} else {
-				this.options[key] = data;
-			}
+			           };
+
+			this.options.push(data);
 		},
 
         createHTML : function() {
