@@ -344,7 +344,6 @@
 
 		filterList : function(value) {
 			const _self = this;
-			var found = false;
 
 			$(this.selectors.list).find(this.classes.noResult).hide();
 
@@ -358,22 +357,22 @@
 			lis.each(function(index, el){
 				if(el.innerText.toLowerCase().indexOf(value) !== -1) {
 					matchingLisIndices.push(index)
-					found = true;
 				}
 			});
 
 			lis.each(function(index, el){
-				if (matchingLisIndices.includes(index)) {
-					el.style.display = 'list-item'
-					if (_self.isOptGroup) {
-						$(el).prevAll(_self.classes.listGroup + ':first').show();
-					}
-				} else {
-					el.style.display = 'none'
-				}
+				el.style.display = 'none';
 			});
 
-			if(!found) {
+			for (let i of matchingLisIndices) {
+				const el = lis[i];
+				el.style.display = 'list-item';
+				if (_self.isOptGroup) {
+					$(el).prevAll(_self.classes.listGroup + ':first').show();
+				}
+			}
+
+			if(!matchingLisIndices.length) {
 				$(this.selectors.list).find(this.classes.noResult).show();
 			}
 		},
