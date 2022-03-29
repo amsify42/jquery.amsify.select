@@ -127,21 +127,24 @@
 
           	if(this.isOptGroup) {
             	$firstItem = $(this.selector).find('option:first');
+
             	if($firstItem.length) {
 	              	_self.options.push({
 	                                    type  : 'option',
 	                                    label : $firstItem.text(),
 	                                });
             	}
-	            $(this.selector).find('optgroup').each(function(index, optgroup){ // TODO: same as below - for let opt (no Jquery)
-	              	_self.options.push({
-	                                    type  : 'optgroup',
-	                                    label : $(optgroup).attr('label'),
-	                                });
-	              	$(optgroup).find('option').each(function(okey, option){
-	              		_self.addOption(option);
-	              	});
-	            });
+
+            	for (let optgroup of Array.from(this.selector.childNodes.values()).filter(e => e.tagName === 'OPTGROUP')) {
+					_self.options.push({
+										type  : 'optgroup',
+										label : $(optgroup).attr('label'),
+									});
+
+					for (let opt of optgroup.childNodes) {
+						_self.addOption(opt)
+					}
+				}
           	} else {
 				for (let opt of this.selector.childNodes) {
 					_self.addOption(opt);
