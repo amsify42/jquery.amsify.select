@@ -135,7 +135,7 @@
 	                                });
             	}
 
-            	for (let optgroup of Array.from(this.selector.childNodes.values()).filter(e => e.tagName === 'OPTGROUP')) {
+            	for (let optgroup of $(this.selector).children("OPTGROUP")) {
 					_self.options.push({
 										type  : 'optgroup',
 										label : $(optgroup).attr('label'),
@@ -146,7 +146,7 @@
 					}
 				}
           	} else {
-				for (let opt of this.selector.childNodes) {
+				for (let opt of $(this.selector).children()) {
 					_self.addOption(opt);
 				}
           	}
